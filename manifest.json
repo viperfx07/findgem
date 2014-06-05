@@ -1,0 +1,23 @@
+{
+   "background": {
+      "page": "background.html"
+   },
+   "browser_action": {
+      "default_icon": "icon19.png"
+   },
+   "content_scripts": [ {
+      "all_frames": true,
+      "css": [  ],
+      "js": [ "jquery.min.js","content_script.js"],
+      "matches": [ "http://*.gumtree.com.au/*", "http://*.gumtree.com.au/*" ]
+   }],
+   "description": "Find Gem",
+   "icons": {
+      "19": "icon19.png"
+   },
+   "manifest_version": 2,
+   "name": "Find Gem",
+   "permissions": [ "tabs", "http://*/*", "https://*/*", "contextMenus", "notifications" ],
+   "update_url": "http://clients2.google.com/service/update2/crx",
+   "version": "0.1"
+}
