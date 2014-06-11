@@ -42,4 +42,49 @@ $(function(){
 	        }
 	    }
 	});
+
+
+	//in ads details
+	if(document.location.pathname.indexOf("s-ad") >= 0)
+	{
+
+		var todaysdate = '11/06/2014';
+		var tomorrowsdate = '12/06/2014';
+	   	if ($('#ad-details #ad-body-inner #ad-attributes .ad-attribute').eq(1).find('dd').html() != todaysdate && 
+	   		$('#ad-details #ad-body-inner #ad-attributes .ad-attribute').eq(1).find('dd').html() != tomorrowsdate) {
+    		window.close();
+		} 
+
+		if($('.reply-form-since').length == 0)
+			window.close();
+		else{
+			var a = $('.reply-form-since').eq(0).html();
+	    	if (a.match(/2014/) == null) {
+	        	window.close();
+	    	}
+		}
+
+		if($('.reply-form-since strong').length == 0)
+			window.close();
+		else{
+			var b = $('.reply-form-since strong').html();
+	        if (b != 'today') {
+	            window.close();
+	        } 
+		}
+		     
+		        	
+    	if($('.reply-form-name').length == 0){	     
+    		window.close();
+    	}
+
+		//add details in the enquiry
+		$("#contactPosterForm #message").val("0430303885");
+		$("#contactPosterForm #from").val("deffry_septian@hotmail.com");
+		$("#contactPosterForm #viewad-contact-name").val("Deffry Septian Prajito");
+		$("#contactPosterForm #sendCopyToSender").prop('checked', true); 
+		$('.checkbox-replica[data-name="sendCopyToSender"]').addClass('checked');
+		 
+	}
+	
 })
