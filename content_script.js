@@ -71,7 +71,7 @@ $(function(){
 			window.close();
 		else{
 			var b = $('.reply-form-since strong').html();
-	        if (b != 'today') {
+	        if (b != 'today' && b != 'yesterday') {
 	            window.close();
 	        } 
 		}
