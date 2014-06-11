@@ -6,9 +6,7 @@ chrome.browserAction.onClicked.addListener(function(){
 	    for (var i = x.length - 1; i >= 0; i--) {
 	    	if(x[i].toLowerCase().indexOf('gem') != -1)
 	    		console.log(x[i]);
-
-	    	// chrome.tabs.create({url: x[i]});
-
+	    		chrome.tabs.create({url: x[i]});
 	    };
 	  });
 	});
