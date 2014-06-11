@@ -48,6 +48,7 @@ $(function(){
 	if(document.location.pathname.indexOf("s-ad") >= 0)
 	{
 
+		//if last edited, it's not today's date or tomorrows date, close it
 		var todaysdate = '11/06/2014';
 		var tomorrowsdate = '12/06/2014';
 	   	if ($('#ad-details #ad-body-inner #ad-attributes .ad-attribute').eq(1).find('dd').html() != todaysdate && 
@@ -55,6 +56,7 @@ $(function(){
     		window.close();
 		} 
 
+		//if member since other than 2014, close
 		if($('.reply-form-since').length == 0)
 			window.close();
 		else{
@@ -64,6 +66,7 @@ $(function(){
 	    	}
 		}
 
+		//if member not since today, close it
 		if($('.reply-form-since strong').length == 0)
 			window.close();
 		else{
@@ -72,8 +75,12 @@ $(function(){
 	            window.close();
 	        } 
 		}
+
+		//if pictures less than 4
+		if($("li.carousel-item").length < 4)
+			window.close();
 		     
-		        	
+		//if no name, close       	
     	if($('.reply-form-name').length == 0){	     
     		window.close();
     	}
