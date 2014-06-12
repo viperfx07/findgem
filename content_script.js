@@ -24,16 +24,18 @@ $(function(){
 
 	$('.placeholder-image').parents('li').remove();
 
+	//if the listing contains this, remove
 	$("span[itemprop='name']").each(function(){
-	    if($(this).html().match(/barber|bean|bed|bench|black|blue|burgundy|cabinet|chaise|chinese|computer|corner|dining|electric|floral|fold|fouton|freedom|fridge|futon|jimmy possum|ikea|lazyboy|l-shaped|massage|moran|office|ottoman|outdoor|pink|pair|plastic|purple|ratan|rattan|recliner|red|rocking|rossini|salmon|scali|set|sofabed|suite|stool|swivel|table|theatre|trailer|tv|two|wicker|2|3|4|5|6|7/i) != null){
+	    if($(this).html().match(/freedom|scali/i) != null){
 	        $(this).parents('li').remove();
 	    }
 	});
 
+	//if the listing contains this, remove
 	$(".rs-ad-description").each(function(){
 	    var a = $(this).html();
 	    
-	    if(a.match(/blue|.com.au|ikea|nick scali|red|three-seater|three seater|two seater|2 seater|3 seater/i) != null){
+	    if(a.match(/.com.au|ikea|nick scali/i) != null){
 	        $(this).parents('li').remove();
 	    } else {
 	        var acount = a.trim().replace( /[^\w ]/g, "" ).split( /\s+/ ).length;
@@ -43,14 +45,23 @@ $(function(){
 	    }
 	});
 
+	//put the paginator on the top
+	$(".c-hide-mobile").before($(".rs-paginator").html());
+	
+	//auto loading the page
+	//if($(".rs-paginator-pager .selected:first").length > 0)
+	//{
+	//	window.location.href = $(".rs-paginator-pager .selected:first").next().prop('href')	
+	//}
+	
 
 	//in ads details
 	if(document.location.pathname.indexOf("s-ad") >= 0)
 	{
 
 		//if last edited, it's not today's date or tomorrows date, close it
-		var todaysdate = '11/06/2014';
-		var tomorrowsdate = '12/06/2014';
+		var todaysdate = '12/06/2014';
+		var tomorrowsdate = '13/06/2014';
 	   	if ($('#ad-details #ad-body-inner #ad-attributes .ad-attribute').eq(1).find('dd').html() != todaysdate && 
 	   		$('#ad-details #ad-body-inner #ad-attributes .ad-attribute').eq(1).find('dd').html() != tomorrowsdate) {
     		window.close();
@@ -77,8 +88,8 @@ $(function(){
 		}
 
 		//if pictures less than 4
-		if($("li.carousel-item").length < 4)
-			window.close();
+		//if($("li.carousel-item").length < 4)
+			// window.close();
 		     
 		//if no name, close       	
     	if($('.reply-form-name').length == 0){	     
