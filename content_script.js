@@ -1,108 +1,114 @@
 chrome.runtime.onMessage.addListener(
-  function(request, sender, sendResponse) {
-  	var anchors = $('.rs-ad-title > a[itemprop="url"]');
-  	var hrefs = [];
-  	for (var i = anchors.length - 1; i >= 0; i--) {
-  		hrefs.push($(anchors[i]).prop('href'));
-  	};
-    var hrefjoin = hrefs.join();
-    if(hrefjoin.length>0)
-	    sendResponse({farewell: hrefjoin});
-	}
+    function(request, sender, sendResponse) {
+        var anchors = $('.rs-ad-title > a[itemprop="url"]');
+        var hrefs = [];
+        for (var i = anchors.length - 1; i >= 0; i--) {
+            hrefs.push($(anchors[i]).prop('href'));
+        };
+
+        var hrefjoin = hrefs.join();
+        if (hrefjoin.length > 0)
+            sendResponse({
+                farewell: hrefjoin
+            });
+        window.location.href = $('.rs-paginator-btn.next').prop('href');
+    }
 );
 
+if (document.location.pathname.indexOf("s-ad") < 0) {
+    //remove header
+    $("#header").remove();
 
-$(function(){
-	$('#adsense-top').remove();
-	$('#topads-sr-title').remove();
+    //remove top ads
+    $('#srchrslt-adtable-topads').remove();
+    $('#topads-sr-title').remove();
+
+    //remove google stuff
+    $('#adsense-top').remove();
 	$('#adsense-middle').remove();
-	$('#srchrslt-adtable-topads').remove();
 	$('#adsense-bottom').remove();
-
 	$('div[id^="div-gpt-ad-"]').remove();
+
+	//remove acitivity
 	$('#user-activity').remove();
 
-	$('.placeholder-image').parents('li').remove();
+    //remove listings that have no pictures
+    $('.placeholder-image').parent().parent().parent().parent().remove();
 
-	//if the listing contains this, remove
-	$("span[itemprop='name']").each(function(){
-	    if($(this).html().match(/freedom|scali/i) != null){
-	        $(this).parents('li').remove();
-	    }
-	});
+    //put the paginator on the top
+    $(".c-hide-mobile").before($(".rs-paginator"));
 
-	//if the listing contains this, remove
-	$(".rs-ad-description").each(function(){
-	    var a = $(this).html();
-	    
-	    if(a.match(/.com.au|ikea|nick scali/i) != null){
-	        $(this).parents('li').remove();
-	    } else {
-	        var acount = a.trim().replace( /[^\w ]/g, "" ).split( /\s+/ ).length;
-	        if(acount < 7){
-	        	$(this).parents('li').remove();
-	        }
-	    }
-	});
+    //remove if filters match
+    var filter = /honda|hyosung|yamaha|harley|ktm|suzuki|ducati|aprilia|kymco|bmw|kawasaki|ikea|scali|piaggio/i;
+    $("span[itemprop='name']").each(function() {
+        if ($(this).html().match(filter) != null) {
+            $(this).parents('li').remove();
+        }
+    });
 
-	//put the paginator on the top
-	$(".c-hide-mobile").before($(".rs-paginator").html());
-	
-	//auto loading the page
-	//if($(".rs-paginator-pager .selected:first").length > 0)
-	//{
-	//	window.location.href = $(".rs-paginator-pager .selected:first").next().prop('href')	
-	//}
-	
+    //remove if filters match
+    $(".rs-ad-description, .rs-ad-attributes").each(function() {
+        var a = $(this).html();
 
-	//in ads details
-	if(document.location.pathname.indexOf("s-ad") >= 0)
-	{
+        if (a.match(filter) != null) {
+            $(this).parents('li').remove();
+        }
+    });
 
-		//if last edited, it's not today's date or tomorrows date, close it
-		var todaysdate = '12/06/2014';
-		var tomorrowsdate = '13/06/2014';
-	   	if ($('#ad-details #ad-body-inner #ad-attributes .ad-attribute').eq(1).find('dd').html() != todaysdate && 
-	   		$('#ad-details #ad-body-inner #ad-attributes .ad-attribute').eq(1).find('dd').html() != tomorrowsdate) {
-    		window.close();
-		} 
+    //auto loading the page
+    //if($(".rs-paginator-pager .selected:first").length > 0)
+    //{
+    //	window.location.href = $(".rs-paginator-pager .selected:first").next().prop('href')	
+    //}
+} 
+else //if in ads details
+{
+    //if last edited, it's not today's date or tomorrows date, close it
+    var todaysdate = '12/06/2014';
+    var tomorrowsdate = '13/06/2014';
+    var lastedited = $.trim($('#ad-details #ad-body-inner #ad-attributes .ad-attribute').eq(1).find('dd').html());
 
-		//if member since other than 2014, close
-		if($('.reply-form-since').length == 0)
-			window.close();
-		else{
-			var a = $('.reply-form-since').eq(0).html();
-	    	if (a.match(/2014/) == null) {
-	        	window.close();
-	    	}
-		}
+    if (!(lastedited == todaysdate || lastedited == tomorrowsdate)) {
+        window.close();
+    }
 
-		//if member not since today, close it
-		if($('.reply-form-since strong').length == 0)
-			window.close();
-		else{
-			var b = $('.reply-form-since strong').html();
-	        if (b != 'today' && b != 'yesterday') {
-	            window.close();
-	        } 
-		}
+    //if member since other than 2014, close
+    if ($('.reply-form-since').length == 0)
+        window.close();
+    else {
+        var a = $('.reply-form-since').eq(0).html();
+        if (a.match(/2014/) == null) {
+            window.close();
+        }
+    }
 
-		//if pictures less than 4
-		//if($("li.carousel-item").length < 4)
-			// window.close();
-		     
-		//if no name, close       	
-    	if($('.reply-form-name').length == 0){	     
-    		window.close();
-    	}
+    //if member not since today, close it
+    if ($('.reply-form-since strong').length == 0)
+        window.close();
+    else {
+        var b = $('.reply-form-since strong').html();
+        if (!(b == 'today' || b == 'yesterday')) {
+            window.close();
+        }
+    }
 
-		//add details in the enquiry
-		$("#contactPosterForm #message").val("0430303885");
-		$("#contactPosterForm #from").val("deffry_septian@hotmail.com");
-		$("#contactPosterForm #viewad-contact-name").val("Deffry Septian Prajito");
-		$("#contactPosterForm #sendCopyToSender").prop('checked', true); 
-		$('.checkbox-replica[data-name="sendCopyToSender"]').addClass('checked');
-		 
-	}
-	
-})
+    //if there's a phone number, close it
+    if ($("#reply-form-phone").length > 0)
+        window.close();
+
+    //if no picture, close it
+    if ($("li.carousel-item").length < 1)
+        window.close();
+
+    //if no name, close       	
+    if ($('.reply-form-name').length == 0) {
+        window.close();
+    }
+
+    //add details in the enquiry
+    $("#contactPosterForm #message").val("0430303885");
+    $("#contactPosterForm #from").val("deffry_septian@hotmail.com");
+    $("#contactPosterForm #viewad-contact-name").val("Deffry Septian Prajito");
+    $("#contactPosterForm #sendCopyToSender").prop('checked', true);
+    $('.checkbox-replica[data-name="sendCopyToSender"]').addClass('checked');
+}
