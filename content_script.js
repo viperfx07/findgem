@@ -39,7 +39,7 @@ if (document.location.pathname.indexOf("s-ad") < 0) {
     $(".c-hide-mobile").before($(".rs-paginator"));
 
     //remove if filters match
-    var filter = /honda|hyosung|yamaha|harley|ktm|suzuki|ducati|aprilia|kymco|bmw|kawasaki|ikea|scali|piaggio/i;
+    var filter = /honda|hyosung|yamaha|harley|ktm|suzuki|ducati|aprilia|kymco|bmw|kawasaki|ikea|scali|piaggio|helmet|ninja|sidecar|stolen|swap|towing|wanted|buggy/i;
     $("span[itemprop='name']").each(function() {
         if ($(this).html().match(filter) != null) {
             $(this).parents('li').remove();
@@ -106,9 +106,14 @@ else //if in ads details
     }
 
     //add details in the enquiry
-    $("#contactPosterForm #message").val("0430303885");
-    $("#contactPosterForm #from").val("deffry_septian@hotmail.com");
-    $("#contactPosterForm #viewad-contact-name").val("Deffry Septian Prajito");
+    // $("#contactPosterForm #message").val("0430303885");
+    // $("#contactPosterForm #from").val("deffry_septian@hotmail.com");
+    // $("#contactPosterForm #viewad-contact-name").val("Deffry Septian Prajito");
+
+    $("#contactPosterForm #message").val("0423275435");
+    $("#contactPosterForm #from").val("indra.arifin@gmail.com");
+    $("#contactPosterForm #viewad-contact-name").val("Indra Arifin");
+
     $("#contactPosterForm #sendCopyToSender").prop('checked', true);
     $('.checkbox-replica[data-name="sendCopyToSender"]').addClass('checked');
 }
