@@ -39,8 +39,11 @@ if (document.location.pathname.indexOf("s-ad") < 0) {
     $(".c-hide-mobile").before($(".rs-paginator"));
 
     //remove if filters match
-    var filter = /sony|nikon|olympus|panasonic|fujifilm|canon|kodak|zeiss|logitech|gopro|taron|sigma|lowerpro|jvc|samsung|pentax|lumix|apple|lg|epson|casio|konica|minolta|kogan|hoya|fuji|ricoh|toshiba|netgear|nec|soniq|palsonic|sharp|soniq|pioneer|phillips|philips|hitachi|agora|tcl|blaupunkt|sanyo|foxtel|ikea|dell|hp|hisense|harmon|kardon|lenovo|apple|macbook|msi|patriot|viewsonic|compaq|asus|acer|brother|linksys|d-link|intel|amd|telstra|nexus|nvidia|seagate|western digital|benq|targus|microsoft|ibm|optus|kingston|belkin|corsair/i;
+    //Electronic   
+    // var filter = /sony|nikon|olympus|panasonic|fujifilm|canon|kodak|zeiss|logitech|gopro|taron|sigma|lowerpro|jvc|samsung|pentax|lumix|apple|lg|epson|casio|konica|minolta|kogan|hoya|fuji|ricoh|toshiba|netgear|nec|soniq|palsonic|sharp|soniq|pioneer|phillips|philips|hitachi|agora|tcl|blaupunkt|sanyo|foxtel|ikea|dell|hp|hisense|harmon|kardon|lenovo|apple|macbook|msi|patriot|viewsonic|compaq|asus|acer|brother|linksys|d-link|intel|amd|telstra|nexus|nvidia|seagate|western digital|benq|targus|microsoft|ibm|optus|kingston|belkin|corsair/i;
 
+    //Home Garden
+    var filter = /\.com\.au|\.net\.au|a1a|admac|airman|altise|amana|ardex|ariston|auger|avanti|bailey|balustrade|beefmaster|beurer|beko|blackridge|bisazza|bissell|blanco|blm|bluesky|bodum|bosch|breville|brickies|bugatti|caffitaly|caravaggi|changhong|coleman|daikin|decker|denyo|dishlex|delongh*i|dimplex|dishlex|duratech|dyson|electrolux|emerproof|espressotoria|euromaid|eurotag|everdure|excellsar|ezarri|fixit|freedom|frigidair|gladz|gmc|godfrey|goodair|goldair|goldstein|griffin|gustav|h2o|hardieflex|hisense|htc|hobbs|homewell|honda|hoover|hundisun|ilve|ipad|iphone|ikea|janome|kambrook|kcleaners|kelvinator|kenwood|keso|kleenmaid|krups|lifan|lonmax|lumia|luminarc|luxalite|l@@k|magimix|makita|martec|masport|maxwell|maytag|mcculloch|midea|miele|mistral|mitsubishi|monarch|nesperesso|ozito|nokia|panasonic|pelmen|peters|phillips|pmec|pristino|pullman|red bull|rheem|reo|rinnai|rohde|ronson|rothenberg|rover|ryobi|saeco|samsung|sanyo|sharp|sheridan|sherlock|siemens|simpson|smeg|stanley|starite|stiehl|stihl|sunbeam|tecoair|tefal|tolix|westinghouse|victa|vidal|whirlpool|wooki|zen/i;
     $("span[itemprop='name']").each(function() {
         if ($(this).html().match(filter) != null) {
             $(this).parents('li').remove();
