@@ -98,31 +98,24 @@ if (document.location.host == 'www.cnet.com') {
 {
     // set a function to add ID to chrome.storage.local
     function addToArray(){
-        var link = window.location.href,
-            list = link.split("/"),
-            id = list[list.length - 1];
-        
-        chrome.storage.local.get("gtArray", function(result) {
-        
-            if (typeof(result["gtArray"]) !== 'undefined' && result["gtArray"] instanceof Array) {
-                
-                // console.log($.inArray(id,result["gtArray"]));
-                
-                if ($.inArray(id,result["gtArray"]) == -1){
-                    console.log('Adding to array');
-                    result["gtArray"].push(id);
-                }
-            } else {
-                console.log('Adding to empty array');
-                result["gtArray"] = [id];
-            }
-            
-            console.log(result["gtArray"]);
-            
-            chrome.storage.local.set(result);
-        });
-        window.close();
-    }
+    
+       var link = window.location.href,
+           list = link.split("/"),
+           id = list[list.length - 1];
+       
+       chrome.storage.local.get("gtArray", function(result) {
+               
+           if ($.inArray(id,result["gtArray"]) == -1){
+            // console.log('Adding to array');
+               result["gtArray"].push(id);
+           }
+           
+           // console.log(result["gtArray"]);
+           
+           chrome.storage.local.set(result);
+       });
+       window.close();
+   }
     
     //if member since other than 2014, close
     if ($('.reply-form-since').length == 0)
@@ -164,6 +157,8 @@ if (document.location.host == 'www.cnet.com') {
     
     // if the window is not closed, then consider adding this into another array
     // this function is TBA
+
+    $('.jcarousel-control-next').click();
 
     //add details in the enquiry
     $("#contactPosterForm #message").val("0430303885");
