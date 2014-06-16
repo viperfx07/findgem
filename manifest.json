@@ -9,7 +9,7 @@
       "all_frames": true,
       "css": [  ],
       "js": [ "jquery.min.js","content_script.min.js"],
-      "matches": [ "http://*.gumtree.com.au/*", "http://*.gumtree.com.au/*" ]
+      "matches": [ "http://*.gumtree.com.au/s-*", "http://www.cnet.com/*" ]
    }],
    "description": "Find Gem",
    "icons": {
