@@ -15,6 +15,29 @@ chrome.runtime.onMessage.addListener(
     }
 );
 
+// set a function to add ID to chrome.storage.local
+function addToArray(){
+    var link = window.location.href,
+        list = link.split("/"),
+        id = list[list.length - 1];
+    
+    chrome.storage.local.get("gtArray", function(cfg) {
+        if (typeof(cfg["gtArray"]) !== 'undefined' && cfg["gtArray"] instanceof Array) {
+            cfg["gtArray"].push(id);
+        } else {
+            cfg["gtArray"] = [id];
+        }
+        console.log(cfg["gtArray"]);
+        chrome.storage.local.set(cfg);
+    });
+}
+
+function closeTabAndRememberUrl()
+{
+    addToArray();
+    window.close();
+}
+
 if (document.location.pathname.indexOf("s-ad") < 0) {
     //remove header
     $("#header").remove();
@@ -63,40 +86,40 @@ if (document.location.pathname.indexOf("s-ad") < 0) {
 {
     //if member since other than 2014, close
     if ($('.reply-form-since').length == 0)
-        window.close();
+        closeTabAndRememberUrl();
     else {
         var a = $('.reply-form-since').eq(0).html();
         if (a.match(/2014/) == null) {
-            window.close();
+            closeTabAndRememberUrl();
         }
     }
 
     // if on Gumtree not since today or yesterday, close it
     if ($('.reply-form-since strong').length == 0)
-        window.close();
+        closeTabAndRememberUrl();
     else {
         var b = $('.reply-form-since strong').html();
         if (!(b == 'today' || b == 'yesterday')) {
-            window.close();
+            closeTabAndRememberUrl();
         }
     }
 
     //if there's a phone number, close
     if ($("#reply-form-phone").length > 0)
-        window.close();
+        closeTabAndRememberUrl();
 
     //if less than one picture, close
     if ($("li.carousel-item").length < 2)
-        window.close();
+        closeTabAndRememberUrl();
 
     //if no name, close         
     if ($('.reply-form-name').length == 0) {
-        window.close();
+        closeTabAndRememberUrl();
     }
     else{
         //if name has space, close
         if($('.reply-form-name').html().indexOf(" ")>0)
-            window.close();
+            closeTabAndRememberUrl();
     }
 
     //add details in the enquiry
