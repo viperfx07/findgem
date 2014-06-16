@@ -25,12 +25,12 @@ if (document.location.pathname.indexOf("s-ad") < 0) {
 
     //remove google stuff
     $('#adsense-top').remove();
-	$('#adsense-middle').remove();
-	$('#adsense-bottom').remove();
-	$('div[id^="div-gpt-ad-"]').remove();
+    $('#adsense-middle').remove();
+    $('#adsense-bottom').remove();
+    $('div[id^="div-gpt-ad-"]').remove();
 
-	//remove acitivity
-	$('#user-activity').remove();
+    //remove acitivity
+    $('#user-activity').remove();
 
     //remove listings that have no pictures
     $('.placeholder-image').parent().parent().parent().parent().remove();
@@ -39,7 +39,8 @@ if (document.location.pathname.indexOf("s-ad") < 0) {
     $(".c-hide-mobile").before($(".rs-paginator"));
 
     //remove if filters match
-    var filter = /honda|hyosung|yamaha|harley|ktm|suzuki|ducati|aprilia|kymco|bmw|kawasaki|ikea|scali|piaggio|helmet|ninja|sidecar|stolen|swap|towing|wanted|buggy/i;
+    var filter = /sony|nikon|olympus|panasonic|fujifilm|canon|kodak|zeiss|logitech|gopro|taron|sigma|lowerpro|jvc|samsung|pentax|lumix|apple|lg|epson|casio|konica|minolta|kogan|hoya|fuji|ricoh|toshiba|netgear|nec|soniq|palsonic|sharp|soniq|pioneer|phillips|philips|hitachi|agora|tcl|blaupunkt|sanyo|foxtel|ikea|dell|hp|hisense|harmon|kardon|lenovo|apple|macbook|msi|patriot|viewsonic|compaq|asus|acer|brother|linksys|d-link|intel|amd|telstra|nexus|nvidia|seagate|western digital|benq|targus|microsoft|ibm|optus|kingston|belkin|corsair/i;
+
     $("span[itemprop='name']").each(function() {
         if ($(this).html().match(filter) != null) {
             $(this).parents('li').remove();
@@ -55,23 +56,8 @@ if (document.location.pathname.indexOf("s-ad") < 0) {
         }
     });
 
-    //auto loading the page
-    //if($(".rs-paginator-pager .selected:first").length > 0)
-    //{
-    //	window.location.href = $(".rs-paginator-pager .selected:first").next().prop('href')	
-    //}
-} 
-else //if in ads details
+} else //if in ads details
 {
-    //if last edited, it's not today's date or tomorrows date, close it
-    var todaysdate = '12/06/2014';
-    var tomorrowsdate = '13/06/2014';
-    var lastedited = $.trim($('#ad-details #ad-body-inner #ad-attributes .ad-attribute').eq(1).find('dd').html());
-
-    if (!(lastedited == todaysdate || lastedited == tomorrowsdate)) {
-        window.close();
-    }
-
     //if member since other than 2014, close
     if ($('.reply-form-since').length == 0)
         window.close();
@@ -82,7 +68,7 @@ else //if in ads details
         }
     }
 
-    //if member not since today, close it
+    // if on Gumtree not since today or yesterday, close it
     if ($('.reply-form-since strong').length == 0)
         window.close();
     else {
@@ -92,27 +78,32 @@ else //if in ads details
         }
     }
 
-    //if there's a phone number, close it
+    //if there's a phone number, close
     if ($("#reply-form-phone").length > 0)
         window.close();
 
-    //if no picture, close it
-    if ($("li.carousel-item").length < 1)
+    //if less than one picture, close
+    if ($("li.carousel-item").length < 2)
         window.close();
 
-    //if no name, close       	
+    //if no name, close         
     if ($('.reply-form-name').length == 0) {
         window.close();
     }
+    else{
+        //if name has space, close
+        if($('.reply-form-name').html().indexOf(" ")>0)
+            window.close();
+    }
 
     //add details in the enquiry
-    // $("#contactPosterForm #message").val("0430303885");
-    // $("#contactPosterForm #from").val("deffry_septian@hotmail.com");
-    // $("#contactPosterForm #viewad-contact-name").val("Deffry Septian Prajito");
+    $("#contactPosterForm #message").val("0430303885");
+    $("#contactPosterForm #from").val("deffry_septian@hotmail.com");
+    $("#contactPosterForm #viewad-contact-name").val("Deffry Septian Prajito");
 
-    $("#contactPosterForm #message").val("0423275435");
-    $("#contactPosterForm #from").val("indra.arifin@gmail.com");
-    $("#contactPosterForm #viewad-contact-name").val("Indra Arifin");
+    // $("#contactPosterForm #message").val("0423275435");
+    // $("#contactPosterForm #from").val("indra.arifin@gmail.com");
+    // $("#contactPosterForm #viewad-contact-name").val("Indra Arifin");
 
     $("#contactPosterForm #sendCopyToSender").prop('checked', true);
     $('.checkbox-replica[data-name="sendCopyToSender"]').addClass('checked');
