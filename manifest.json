@@ -8,8 +8,8 @@
    "content_scripts": [ {
       "all_frames": true,
       "css": [  ],
-      "js": [ "jquery.min.js","content_script.min.js"],
-      "matches": [ "http://*.gumtree.com.au/*", "http://*.gumtree.com.au/*" ]
+      "js": [ "jquery.min.js","content_script_ajax.min.js"],
+      "matches": [ "http://*.gumtree.com.au/s-*", "http://www.gumtree.com.au/pro-seller-signup.html" ]
    }],
    "description": "Find Gem",
    "icons": {
@@ -19,5 +19,5 @@
    "name": "Find Gem",
    "permissions": [ "tabs", "http://*/*", "https://*/*", "contextMenus", "notifications","storage" ],
    "update_url": "http://clients2.google.com/service/update2/crx",
-   "version": "0.4.1"
+   "version": "0.5"
 }

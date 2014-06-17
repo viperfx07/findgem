@@ -15,12 +15,15 @@ chrome.runtime.onMessage.addListener(
     }
 );
 
-if (document.location.host == 'www.cnet.com') {
+if (document.location.pathname == '/pro-seller-signup.html') {
     console.log('Reset gtArray');
-    chrome.storage.local.set({gtArray: []});
-    chrome.storage.local.get("gtArray", function(result) {
-        console.log(result["gtArray"]);
-    });
+    // chrome.storage.local.set({gtArray: []});
+    // chrome.storage.local.get("gtArray", function(result) {
+    //     console.log(result["gtArray"]);
+    // });
+    localStorage['gtArray'] = JSON.stringify([]);
+    console.log(localStorage['gtArray']);
+    
 } else if (document.location.pathname.indexOf("s-ad") < 0) {
     
     // console.log(document.location);
@@ -50,29 +53,24 @@ if (document.location.host == 'www.cnet.com') {
     // remove if the listing has already been automatically checked and closed during previous search
     // checking it against the array in chrome.storage.local
     
-    /*
-    chrome.storage.local.get("gtArray", function(result) {
+    var myArray = JSON.parse(localStorage["gtArray"]) || [];
     
-        var myArray = result["gtArray"];
+    console.log(myArray.length);
             
-        console.log(myArray.length);
+    if (typeof(myArray) !== 'undefined' && myArray instanceof Array) {
             
-        if (typeof(myArray) !== 'undefined' && myArray instanceof Array) {
-            
-            // looping through links
-            $("div[itemprop='offers'] a[itemprop='url']").each(function(){
-                var link = this.href,
-                    list = link.split("/"),
-                    id = list[list.length - 1];
+    // looping through links
+    $("div[itemprop='offers'] a[itemprop='url']").each(function(){
+    	var link = this.href,
+            list = link.split("/"),
+            id = list[list.length - 1];
                 
-                // remove if matches
-                if ($.inArray(id,myArray) > -1) {
-                    $(this).parents("li[itemprop='offers']").remove();
-                }
-            });
-        }
-    });
-    */
+            // remove if matches
+            if ($.inArray(id,myArray) > -1) {
+                $(this).parents("li[itemprop='offers']").remove();
+            }
+    	});
+    }
     
     // setting filter values
     // Electronics
@@ -81,16 +79,13 @@ if (document.location.host == 'www.cnet.com') {
     var filter = /\.com\.au|\.net\.au|a1a|admac|airman|altise|amana|ardex|ariston|auger|avanti|bailey|balustrade|beefmaster|beurer|beko|blackridge|bisazza|bissell|blanco|blm|bluesky|bodum|bosch|breville|brickies|bugatti|caffitaly|caravaggi|changhong|coleman|daikin|decker|denyo|dishlex|delongh*i|dimplex|dishlex|duratech|dyson|electrolux|emerproof|espressotoria|euromaid|eurotag|everdure|excellsar|ezarri|fixit|freedom|frigidair|gladz|gmc|godfrey|goodair|goldair|goldstein|griffin|gustav|h2o|hardieflex|hisense|htc|hobbs|homewell|honda|hoover|hundisun|ilve|ipad|iphone|ikea|janome|kambrook|kcleaners|kelvinator|kenwood|keso|kleenmaid|krups|lifan|lonmax|lumia|luminarc|luxalite|l@@k|magimix|makita|martec|masport|maxwell|maytag|mcculloch|midea|miele|mistral|mitsubishi|monarch|nesperesso|ozito|nokia|panasonic|pelmen|peters|phillips|pmec|pristino|pullman|red bull|rheem|reo|rinnai|rohde|ronson|rothenberg|rover|ryobi|saeco|samsung|sanyo|sharp|sheridan|sherlock|siemens|simpson|smeg|stanley|starite|stiehl|stihl|sunbeam|tecoair|tefal|tolix|westinghouse|victa|vidal|whirlpool|wooki|zen/i;
     
     //remove if header title contains any of the filter values
-    /*
     $("span[itemprop='name']").each(function() {
         if ($(this).html().match(filter) != null) {
             $(this).parents('li').remove();
         }
     });
-    */
-    
+
     //remove if description contains any of the filter values
-    /*
     $(".rs-ad-description, .rs-ad-attributes").each(function() {
         var a = $(this).html();
 
@@ -98,29 +93,24 @@ if (document.location.host == 'www.cnet.com') {
             $(this).parents('li').remove();
         }
     });
-    */
 
 } else if (document.location.pathname.indexOf("s-ad") >= 0)
 {
     // set a function to add ID to chrome.storage.local
     function addToArray(){
     
-       var link = window.location.href,
-           list = link.split("/"),
-           id = list[list.length - 1];
-       
-       chrome.storage.local.get("gtArray", function(result) {
-               
-           if ($.inArray(id,result["gtArray"]) == -1){
-            // console.log('Adding to array');
-               result["gtArray"].push(id);
-           }
-           
-           // console.log(result["gtArray"]);
-           
-           chrome.storage.local.set(result);
-       });
-       window.close();
+		var link = window.location.href,
+           	list = link.split("/"),
+           	id = list[list.length - 1];
+           	
+		var myArray = JSON.parse(localStorage["gtArray"]);
+        	
+        if ($.inArray(id,myArray) == -1){
+        	myArray.push(id);
+        }
+           	
+		localStorage["gtArray"] = JSON.stringify(myArray);
+       	window.close();
    }
     
     //if member since other than 2014, close
