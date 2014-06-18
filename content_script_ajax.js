@@ -27,6 +27,15 @@ if (document.location.pathname == '/pro-seller-signup.html') {
         
         if (id_exists >= 0){
         	counter++;
+        	if (counter == urls.length) {
+                var tallyArrayAccepted = $.unique($.merge(JSON.parse(localStorage["gtArrayAccepted"]), myArrayAccepted)),
+                    tallyArrayRejected = myArrayRejected;
+                
+                localStorage["gtArrayAccepted"] = JSON.stringify(tallyArrayAccepted);
+                localStorage["gtArrayRejected"] = JSON.stringify(tallyArrayRejected);
+                console.log(tallyArrayAccepted);
+                setTimeout(function(){$('.rs-paginator-btn.next .rs-text').click()}, 1000);
+            }
         } else {
 			$.ajax({
 				url: url
