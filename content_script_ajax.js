@@ -67,9 +67,8 @@ if (document.location.pathname == '/pro-seller-signup.html') {
 				}
 			
 				if (counter == urls.length) {
-					console.log(localStorage["gtArrayAccepted"]);
 					var tallyArrayAccepted = $.unique($.merge(JSON.parse(localStorage["gtArrayAccepted"]), myArrayAccepted)),
-						tallyArrayRejected = $.unique(myArrayRejected);
+						tallyArrayRejected = myArrayRejected;
 					
 					localStorage["gtArrayAccepted"] = JSON.stringify(tallyArrayAccepted);
 					localStorage["gtArrayRejected"] = JSON.stringify(tallyArrayRejected);
