@@ -8,7 +8,7 @@
    "content_scripts": [ {
       "all_frames": true,
       "css": [  ],
-      "js": [ "jquery.min.js","content_script_ajax.min.js"],
+      "js": [ "jquery.min.js","v_content_script_ajax.js"],
       "matches": [ "http://*.gumtree.com.au/s-*", "http://www.gumtree.com.au/pro-seller-signup.html" ]
    }],
    "description": "Find Gem",
