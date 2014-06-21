@@ -106,9 +106,7 @@ function callPageListingUrl(url){
             var id = itemUrlSplit[itemUrlSplit.length - 1];
             if(localStorage.gtArrayRejected.indexOf(id.toString()) < 0)
             {
-                var urlSplit = $(this).prop('href').split('/');
-                urlSplit = urlSplit.splice(3,urlSplit.length);
-                callPageDetailsUrl(website + '/' + urlSplit.join('/'));
+                callPageDetailsUrl(website + '/s-ad/' + urlSplit.join('/'));
             }
         })
       }
