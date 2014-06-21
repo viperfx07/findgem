@@ -106,7 +106,7 @@ function callPageListingUrl(url){
             var id = itemUrlSplit[itemUrlSplit.length - 1];
             if(localStorage.gtArrayRejected.indexOf(id.toString()) < 0)
             {
-                callPageDetailsUrl(website + '/s-ad/' + urlSplit.join('/'));
+                callPageDetailsUrl(website + '/s-ad/' + id);
             }
         })
       }
